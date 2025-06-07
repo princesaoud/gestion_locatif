@@ -1,11 +1,13 @@
 using MudBlazor.Services;
 using GestionLocativ.Client.Pages;
+using GestionLocativ.Client.Services;
 using GestionLocativ.Components;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add MudBlazor services
 builder.Services.AddMudServices();
+builder.Services.AddSingleton<AuthService>();
 
 // Add services to the container.
 builder.Services.AddRazorComponents()

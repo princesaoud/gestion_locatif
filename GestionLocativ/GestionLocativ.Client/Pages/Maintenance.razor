@@ -1,0 +1,40 @@
+@page "/maintenance"
+
+@inject AuthService Auth
+@inject NavigationManager Nav
+
+@if (Auth.IsAuthenticated)
+{
+    <MudText Typo="Typo.h4" Class="mb-4">Maintenance</MudText>
+    <MudTextField @bind-Value="_description" Label="Description" Variant="Variant.Filled" Class="mb-4" />
+    <MudButton Variant="Variant.Filled" OnClick="AddMaintenance">Add Maintenance</MudButton>
+
+    <MudList Class="mt-4">
+        @foreach (var item in _items)
+        {
+            <MudListItem>@item</MudListItem>
+        }
+    </MudList>
+}
+
+@code {
+    private string _description = string.Empty;
+    private List<string> _items = new();
+
+    protected override void OnInitialized()
+    {
+        if (!Auth.IsAuthenticated)
+        {
+            Nav.NavigateTo("/login", true);
+        }
+    }
+
+    private void AddMaintenance()
+    {
+        if (!string.IsNullOrWhiteSpace(_description))
+        {
+            _items.Add(_description);
+            _description = string.Empty;
+        }
+    }
+}

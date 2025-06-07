@@ -1,0 +1,41 @@
+@page "/utilities"
+
+@inject AuthService Auth
+@inject NavigationManager Nav
+
+@if (Auth.IsAuthenticated)
+{
+    <MudText Typo="Typo.h4" Class="mb-4">Utilities</MudText>
+    <MudTextField @bind-Value="_water" Label="Water Bill" Variant="Variant.Filled" Class="mb-4" />
+    <MudTextField @bind-Value="_electric" Label="Electricity Bill" Variant="Variant.Filled" Class="mb-4" />
+    <MudButton Variant="Variant.Filled" OnClick="AddUtility">Add</MudButton>
+
+    <MudList Class="mt-4">
+        @foreach (var item in _items)
+        {
+            <MudListItem>@item</MudListItem>
+        }
+    </MudList>
+}
+
+@code {
+    private string _water = string.Empty;
+    private string _electric = string.Empty;
+    private List<string> _items = new();
+
+    protected override void OnInitialized()
+    {
+        if (!Auth.IsAuthenticated)
+        {
+            Nav.NavigateTo("/login", true);
+        }
+    }
+
+    private void AddUtility()
+    {
+        var info = $"Water: {_water}, Electric: {_electric}";
+        _items.Add(info);
+        _water = string.Empty;
+        _electric = string.Empty;
+    }
+}

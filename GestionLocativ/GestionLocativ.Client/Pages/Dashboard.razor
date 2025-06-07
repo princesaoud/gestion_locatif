@@ -1,0 +1,24 @@
+@page "/dashboard"
+
+@inject AuthService Auth
+@inject NavigationManager Nav
+
+@if (Auth.IsAuthenticated)
+{
+    <MudText Typo="Typo.h4" Class="mb-4">Dashboard</MudText>
+    <MudList>
+        <MudListItem Href="tenants">Tenants</MudListItem>
+        <MudListItem Href="maintenance">Maintenance</MudListItem>
+        <MudListItem Href="utilities">Utilities</MudListItem>
+    </MudList>
+}
+
+@code {
+    protected override void OnInitialized()
+    {
+        if (!Auth.IsAuthenticated)
+        {
+            Nav.NavigateTo("/login", true);
+        }
+    }
+}
