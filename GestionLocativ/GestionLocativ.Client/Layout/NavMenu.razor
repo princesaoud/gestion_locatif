@@ -1,10 +1,33 @@
 ﻿
+@inject AuthService Auth
+@inject NavigationManager Nav
+
 <MudNavMenu>
     <MudNavLink Href="" Match="NavLinkMatch.All" Icon="@Icons.Material.Filled.Home">Home</MudNavLink>
     <MudNavLink Href="counter" Match="NavLinkMatch.Prefix" Icon="@Icons.Material.Filled.Add">Counter</MudNavLink>
-    
     <MudNavLink Href="weather" Match="NavLinkMatch.Prefix" Icon="@Icons.Material.Filled.List">Weather</MudNavLink>
 
+    @if (Auth.IsAuthenticated)
+    {
+        <MudNavLink Href="dashboard" Icon="@Icons.Material.Filled.Dashboard">Dashboard</MudNavLink>
+        <MudNavLink Href="tenants" Icon="@Icons.Material.Filled.Group">Tenants</MudNavLink>
+        <MudNavLink Href="maintenance" Icon="@Icons.Material.Filled.Build">Maintenance</MudNavLink>
+        <MudNavLink Href="utilities" Icon="@Icons.Material.Filled.Receipt">Utilities</MudNavLink>
+        <MudNavLink Href="" OnClick="Logout" Icon="@Icons.Material.Filled.Logout">Logout</MudNavLink>
+    }
+    else
+    {
+        <MudNavLink Href="login" Icon="@Icons.Material.Filled.Lock">Login</MudNavLink>
+    }
+
 </MudNavMenu>
+
+@code {
+    private void Logout()
+    {
+        Auth.Logout();
+        Nav.NavigateTo("login", true);
+    }
+}
 
 

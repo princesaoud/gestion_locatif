@@ -1,0 +1,49 @@
+@page "/tenants"
+
+@inject AuthService Auth
+@inject NavigationManager Nav
+
+@if (Auth.IsAuthenticated)
+{
+    <MudText Typo="Typo.h4" Class="mb-4">Tenants</MudText>
+    <MudTextField @bind-Value="_name" Label="Tenant Name" Variant="Variant.Filled" Class="mb-4" />
+    <MudTextField @bind-Value="_client" Label="Associated Client" Variant="Variant.Filled" Class="mb-4" />
+    <MudButton Variant="Variant.Filled" OnClick="AddTenant">Add Tenant</MudButton>
+
+    <MudList Class="mt-4">
+        @foreach (var t in _tenants)
+        {
+            <MudListItem>@t.Name - @t.Client</MudListItem>
+        }
+    </MudList>
+}
+
+@code {
+    private string _name = string.Empty;
+    private string _client = string.Empty;
+    private List<Tenant> _tenants = new();
+
+    protected override void OnInitialized()
+    {
+        if (!Auth.IsAuthenticated)
+        {
+            Nav.NavigateTo("/login", true);
+        }
+    }
+
+    private void AddTenant()
+    {
+        if (!string.IsNullOrWhiteSpace(_name))
+        {
+            _tenants.Add(new Tenant { Name = _name, Client = _client });
+            _name = string.Empty;
+            _client = string.Empty;
+        }
+    }
+
+    private class Tenant
+    {
+        public string Name { get; set; } = string.Empty;
+        public string Client { get; set; } = string.Empty;
+    }
+}

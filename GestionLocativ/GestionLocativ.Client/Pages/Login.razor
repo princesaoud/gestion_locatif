@@ -1,0 +1,26 @@
+@page "/login"
+
+@inject AuthService Auth
+@inject NavigationManager Nav
+
+<MudPaper Class="pa-6 mx-auto mt-12" Style="max-width:400px;">
+    <MudText Typo="Typo.h5" Class="mb-4">Login</MudText>
+    <MudTextField @bind-Value="_user" Label="User" Variant="Variant.Filled" Class="mb-4" />
+    <MudTextField @bind-Value="_password" Label="Password" Variant="Variant.Filled" InputType="InputType.Password" Class="mb-4" />
+    <MudButton Variant="Variant.Filled" Color="Color.Primary" OnClick="OnLogin" FullWidth="true" Class="mb-4">Login</MudButton>
+    <MudStack Row="true" Justify="space-between">
+        <MudLink Href="register">Register</MudLink>
+        <MudLink Href="reset">Forgot password?</MudLink>
+    </MudStack>
+</MudPaper>
+
+@code {
+    private string _user = string.Empty;
+    private string _password = string.Empty;
+
+    private void OnLogin()
+    {
+        Auth.Login(_user, _password);
+        Nav.NavigateTo("/dashboard", true);
+    }
+}
