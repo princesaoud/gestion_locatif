@@ -10,10 +10,10 @@
     <MudTextField @bind-Value="_client" Label="Associated Client" Variant="Variant.Filled" Class="mb-4" />
     <MudButton Variant="Variant.Filled" OnClick="AddTenant">Add Tenant</MudButton>
 
-    <MudList Class="mt-4">
+    <MudList T="Tenant" Class="mt-4">
         @foreach (var t in _tenants)
         {
-            <MudListItem>@t.Name - @t.Client</MudListItem>
+            <MudListItem T="Tenant">@t.Name - @t.Client</MudListItem>
         }
     </MudList>
 }
