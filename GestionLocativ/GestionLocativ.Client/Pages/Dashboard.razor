@@ -6,10 +6,10 @@
 @if (Auth.IsAuthenticated)
 {
     <MudText Typo="Typo.h4" Class="mb-4">Dashboard</MudText>
-    <MudList>
-        <MudListItem Href="tenants">Tenants</MudListItem>
-        <MudListItem Href="maintenance">Maintenance</MudListItem>
-        <MudListItem Href="utilities">Utilities</MudListItem>
+    <MudList T="string">
+        <MudListItem T="string" Href="tenants">Tenants</MudListItem>
+        <MudListItem T="string" Href="maintenance">Maintenance</MudListItem>
+        <MudListItem T="string" Href="utilities">Utilities</MudListItem>
     </MudList>
 }
 

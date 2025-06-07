@@ -10,10 +10,10 @@
     <MudTextField @bind-Value="_electric" Label="Electricity Bill" Variant="Variant.Filled" Class="mb-4" />
     <MudButton Variant="Variant.Filled" OnClick="AddUtility">Add</MudButton>
 
-    <MudList Class="mt-4">
+    <MudList T="string" Class="mt-4">
         @foreach (var item in _items)
         {
-            <MudListItem>@item</MudListItem>
+            <MudListItem T="string">@item</MudListItem>
         }
     </MudList>
 }
